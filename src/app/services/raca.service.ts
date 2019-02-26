@@ -29,6 +29,22 @@ export class RacaService {
     this.executeSQL(sql,data,"Raca Deletada");
   }
 
+  public getAll():Array<Raca>{
+    let sql= "select * from raca";
+    let data : any[];
+    let retorno = this.executeSQL(sql,data,"Consulta all");
+    let racas = new Array<Raca>();
+    if(retorno.rows.length > 0){
+
+      for( var i =0; i < retorno.rows.length;i++){
+        let raca = retorno.rows.item(i);
+        racas.push(new Raca(raca.id, raca.nome));
+      }
+
+    }
+    return racas; 
+
+  }
 
   private executeSQL(sql:string, data : any[], msg? : string): any {
 
