@@ -1,16 +1,18 @@
+import { Proprietario } from './proprietario';
+import { Raca } from './raca';
 export class Cachorro{
     id : number;
     nome : string;
     idade : number;
-    proprietario_id : number;
-    raca_id : number;
+    proprietario : Proprietario;
+    raca : Raca;
 
 
-    constructor(id?: number, nome? : string, idade? : string, proprietario_id? : number, raca_id? : number){
+    constructor(id?: number, nome? : string, idade? : string, proprietario? : Proprietario, raca? : Raca){
         this.id = id;
         this.nome = nome;
-        this.proprietario_id = proprietario_id;
-        this.raca_id = raca_id;
+        this.proprietario = proprietario;
+        this.raca = raca;
         
     }
 
