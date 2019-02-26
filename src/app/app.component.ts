@@ -1,8 +1,10 @@
+import { DatabaseService } from './services/database.service';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+
 
 @Component({
   selector: 'app-root',
@@ -14,18 +16,14 @@ export class AppComponent {
       title: 'Home',
       url: '/home',
       icon: 'home'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private dbService : DatabaseService
   ) {
     this.initializeApp();
   }
@@ -33,6 +31,11 @@ export class AppComponent {
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
+
+      this.dbService.createDataBase().then(()=>{
+        alert('Criou o db');
+      }).catch(e => console.error(e));
+
       this.splashScreen.hide();
     });
   }
