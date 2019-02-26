@@ -16,6 +16,11 @@ export class AppComponent {
       title: 'Home',
       url: '/home',
       icon: 'home'
+    },
+    {
+      title: 'Raça de Cachorro',
+      url: '/raca',
+      icon: 'paw'
     }
   ];
 
@@ -33,7 +38,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
 
       this.dbService.createDataBase().then(()=>{
-        alert('Criou o db');
+        
       }).catch(e => console.error(e));
 
       this.splashScreen.hide();

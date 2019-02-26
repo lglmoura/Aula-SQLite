@@ -16,29 +16,25 @@ export class DatabaseService {
     })
       
   }
-  public async createDataBase(){
-    try {
-      const db = await this.getDataBase();
+  public createDataBase(){
+    return this.getDataBase()
+    .then((db : SQLiteObject) =>{
       this.createTables(db);
-    }
-    catch (e) {
-      return console.error(e);
-    }
+    })
+    .catch (e => console.error(e));
+    
   }
   
-  private async createTables(db : SQLiteObject){
-    try {
-      await db.sqlBatch([
+  private createTables(db : SQLiteObject){
+    return db.sqlBatch([
         ['CREATE TABLE IF NOT EXISTS raca ( id INT NOT NULL, nome VARCHAR(100) NULL, PRIMARY KEY (id));'],
         ['CREATE TABLE IF NOT EXISTS proprietario ( id INT NOT NULL, nome VARCHAR(100) NULL, rua VARCHAR(100) NULL, complemento VARCHAR(45) NULL, bairro VARCHAR(45) NULL, cidade VARCHAR(100) NULL, estado VARCHAR(2) NULL, cep VARCHAR(8) NULL, PRIMARY KEY (id));'],
         ['CREATE TABLE IF NOT EXISTS cachorro (id INT NOT NULL,nome VARCHAR(100) NULL, idade INT NULL, Proprietario_id INT NOT NULL, raca_id INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (Proprietario_id) REFERENCES Proprietario (id), FOREIGN KEY (raca_id) REFERENCES raca (id));']
-      ]);
-      console.log("tabelas criadas");
-    }
-    catch (e) {
-      return console.error(e);
+      ]).then(() => {
+        console.log("tabelas criadas");
+      }).catch (e => console.error(e));
     }
 
-  }
+  
 
 }

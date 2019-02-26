@@ -15,6 +15,7 @@ const routes: Routes = [
     path: 'list',
     loadChildren: './list/list.module#ListPageModule'
   },
+  { path: 'raca', loadChildren: './raca/raca.module#RacaPageModule' },
   { path: 'raca', loadChildren: './raca/raca.module#RacaPageModule' }
 ];
 
