@@ -19,7 +19,8 @@ export class DatabaseService {
   public createDataBase(){
     return this.getDataBase()
     .then((db : SQLiteObject) =>{
-      this.createTables(db);
+     this.deleteTables(db);
+     this.createTables(db);
     })
     .catch (e => console.error(e));
     
@@ -27,14 +28,27 @@ export class DatabaseService {
   
   private createTables(db : SQLiteObject){
     return db.sqlBatch([
-        ['CREATE TABLE IF NOT EXISTS raca ( id INT NOT NULL, nome VARCHAR(100) NULL, PRIMARY KEY (id));'],
-        ['CREATE TABLE IF NOT EXISTS proprietario ( id INT NOT NULL, nome VARCHAR(100) NULL, rua VARCHAR(100) NULL, complemento VARCHAR(45) NULL, bairro VARCHAR(45) NULL, cidade VARCHAR(100) NULL, estado VARCHAR(2) NULL, cep VARCHAR(8) NULL, PRIMARY KEY (id));'],
-        ['CREATE TABLE IF NOT EXISTS cachorro (id INT NOT NULL,nome VARCHAR(100) NULL, idade INT NULL, Proprietario_id INT NOT NULL, raca_id INT NOT NULL, PRIMARY KEY (id), FOREIGN KEY (Proprietario_id) REFERENCES Proprietario (id), FOREIGN KEY (raca_id) REFERENCES raca (id));']
+        ['CREATE TABLE IF NOT EXISTS raca ( id integer primary key AUTOINCREMENT NOT NULL, nome VARCHAR(100) NULL);'],
+        ['CREATE TABLE IF NOT EXISTS proprietario ( id integer primary key AUTOINCREMENT NOT NULL, '+ 
+              'nome VARCHAR(100) NULL, rua VARCHAR(100) NULL, complemento VARCHAR(45) '+
+              'NULL, bairro VARCHAR(45) NULL, cidade VARCHAR(100) NULL, estado VARCHAR(2) '+
+              'NULL, cep VARCHAR(8) NULL);'],
+        ['CREATE TABLE IF NOT EXISTS cachorro (id integer primary key AUTOINCREMENT NOT NULL,nome VARCHAR(100) NULL, '+ 
+                                               'idade integer NULL, Proprietario_id integer NOT NULL, '+
+                                               'raca_id integer NOT NULL, '+
+                                               'FOREIGN KEY (Proprietario_id) REFERENCES Proprietario (id), '+
+                                               'FOREIGN KEY (raca_id) REFERENCES raca (id));']
       ]).then(() => {
         console.log("tabelas criadas");
       }).catch (e => console.error(e));
     }
 
-  
-
+  private deleteTables(db : SQLiteObject, oldVersion? :number, newVersion? : number) {
+      return db.sqlBatch([['DROP TABLE IF EXISTS raca;'],
+                        ['DROP TABLE IF EXISTS proprietario;'],
+                        ['DROP TABLE IF EXISTS cachorro;']
+                      ]).then(() =>{
+                        console.log("Tabelas deletas");
+                      }).catch( e => console.error(e));
+  }
 }
