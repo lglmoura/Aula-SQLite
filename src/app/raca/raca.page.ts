@@ -23,8 +23,8 @@ export class RacaPage implements OnInit {
     this.initializePage(); 
     
   }
-  ngAfterViewInit(){
-    
+  ionViewDidLoad(){
+    console.log("============>>>>>");
     this.initializePage();
   }
 
