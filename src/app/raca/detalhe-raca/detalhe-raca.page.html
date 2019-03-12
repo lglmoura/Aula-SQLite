@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/raca" text="" color="" ></ion-back-button>
+    </ion-buttons>
+    
+    <ion-title>DetalheRaca</ion-title>
+ 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list> 
+      
+      <ion-item>
+          <ion-label stacked>Nome</ion-label>
+          <ion-input type="nome" name="nome" [(ngModel)]="raca.nome"></ion-input>
+        </ion-item>
+      
+        <div>
+          <ion-button round (click)="salvar()">Salvar</ion-button>
+        </div>
+  </ion-list>
+</ion-content>

@@ -16,7 +16,8 @@ const routes: Routes = [
     loadChildren: './list/list.module#ListPageModule'
   },
   { path: 'raca', loadChildren: './raca/raca.module#RacaPageModule' },
-  { path: 'raca', loadChildren: './raca/raca.module#RacaPageModule' }
+  { path: 'raca', loadChildren: './raca/raca.module#RacaPageModule' },
+  { path: 'detalhe-raca', loadChildren: './raca/detalhe-raca/detalhe-raca.module#DetalheRacaPageModule' }
 ];
 
 @NgModule({

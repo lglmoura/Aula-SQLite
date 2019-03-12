@@ -17,31 +17,17 @@
   </ion-card>
 
  
-    <!--<ion-list> 
-      <ion-item>
-          <ion-label stacked>ID</ion-label>
-          <ion-input type="text" name="endereco" [(ngModel)]="raca.id"></ion-input>
-        </ion-item>
+   
 
-      <ion-item>
-          <ion-label stacked>Nome</ion-label>
-          <ion-input type="nome" name="nome" [(ngModel)]="raca.nome"></ion-input>
-        </ion-item>
-      
-        <div>
-          <button ion-button round (click)="salvar()">Salvar</button>
-        </div>
-    </ion-list>
--->
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <ion-fab right bottom>
-      <!--
-      <button ion-fab color="primary" (click)="addRaca()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-      -->
-    </ion-fab>
+    
+     
+      <ion-button color="primary" [routerLink]="['/detalhe-raca']">
+       Novo
+      </ion-button>
+     
+  
   </ion-toolbar>
 </ion-footer>

@@ -18,9 +18,14 @@ export class RacaPage implements OnInit {
 
    }
 
+   
   ngOnInit() {
     this.initializePage(); 
     
+  }
+  ngAfterViewInit(){
+    
+    this.initializePage();
   }
 
   private async initializePage(){
@@ -37,9 +42,7 @@ export class RacaPage implements OnInit {
     
       
   }
-  public salvar():void{
-    this.racaService.insert(this.raca);
-  }
+ 
 
 }
 

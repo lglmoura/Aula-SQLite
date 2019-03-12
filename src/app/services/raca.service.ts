@@ -13,8 +13,8 @@ export class RacaService {
   constructor(public dbService : DatabaseService) { }
 
   public insert(raca : Raca): void{
-    let sql= "insert into raca( id , nome) values (?,?);";
-    let data = [raca.id, raca.nome];
+    let sql= "insert into raca( nome) values (?);";
+    let data = [raca.nome];
     this.executeSQL(sql,data,"Raca Inserida");
   }
 
@@ -42,7 +42,7 @@ export class RacaService {
           let racas = new Array<Raca>();
           for( var i =0; i < retorno.rows.length;i++){
             let raca = retorno.rows.item(i);
-            console.log(raca.nome);
+            
             racas.push(new Raca( raca.nome));
           }
           console.log(racas.length);
@@ -68,8 +68,7 @@ export class RacaService {
     this.dbService.getDataBase().
     then(async (db : SQLiteObject) =>{
       await db.executeSql(sql,data).then( (ret : any)=>{
-        console.log(msg);
-        console.log("tipo1: "+typeof(ret));
+        
         console.log(ret.rows.length);
          return ret.rows; 
 
