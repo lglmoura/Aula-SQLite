@@ -83,5 +83,7 @@
     <plugin name="cordova-plugin-ionic-webview" spec="^3.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-sqlite-storage" spec="3.1.0" />
+    <allow-navigation href="http://192.168.14.14:8100" sessionid="130e8309" />
+    <allow-navigation href="http://10.11.10.138:8100" sessionid="e1d0b270" />
     <engine name="android" spec="7.1.4" />
 </widget>

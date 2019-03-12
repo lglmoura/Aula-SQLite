@@ -1,12 +1,13 @@
 import { Cachorro } from './cachorro';
 
 export class Raca{
+    
     id: number;
     nome :string;
     cachorros : Array<Cachorro>;
 
-    constructor(id?: number, nome? : string ){
-        this.id = id;
+    constructor( nome? : string ){
+        
         this.nome = nome;
         
     }

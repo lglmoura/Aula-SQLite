@@ -19,7 +19,7 @@ export class DatabaseService {
   public createDataBase(){
     return this.getDataBase()
     .then((db : SQLiteObject) =>{
-     this.deleteTables(db);
+     //this.deleteTables(db);
      this.createTables(db);
     })
     .catch (e => console.error(e));

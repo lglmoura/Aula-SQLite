@@ -4,6 +4,7 @@ import { DatabaseService } from './database.service';
 import { Injectable } from '@angular/core';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -29,34 +30,59 @@ export class RacaService {
     this.executeSQL(sql,data,"Raca Deletada");
   }
 
-  public getAll():Array<Raca>{
-    let sql= "select * from raca";
-    let data : any[];
-    let retorno = this.executeSQL(sql,data,"Consulta all");
-    let racas = new Array<Raca>();
-    if(retorno.rows.length > 0){
-
-      for( var i =0; i < retorno.rows.length;i++){
-        let raca = retorno.rows.item(i);
-        racas.push(new Raca(raca.id, raca.nome));
-      }
-
-    }
-    return racas; 
-
+  public getAll(){
+    
+    return this.dbService.getDataBase().
+    then((db : SQLiteObject) =>{
+        let sql= "select * from raca";
+        let data : any[];
+       return db.executeSql(sql,data).then( (retorno : any)=>{
+        //
+        if(retorno.rows.length > 0){
+          let racas = new Array<Raca>();
+          for( var i =0; i < retorno.rows.length;i++){
+            let raca = retorno.rows.item(i);
+            console.log(raca.nome);
+            racas.push(new Raca( raca.nome));
+          }
+          console.log(racas.length);
+          return racas; 
+        } else{
+          return new Array<Raca>();
+        }
+      }).catch(e=> { 
+        console.error(e)
+        
+      });
+    })
+    .catch(e => {
+      console.error(e);
+      
+    });
+     
+      
   }
 
-  private executeSQL(sql:string, data : any[], msg? : string): any {
+  private  executeSQL(sql:string, data : any[], msg? : string){
 
     this.dbService.getDataBase().
-    then((db : SQLiteObject) =>{
-      db.executeSql(sql,data).then((ret : any)=>{
+    then(async (db : SQLiteObject) =>{
+      await db.executeSql(sql,data).then( (ret : any)=>{
         console.log(msg);
-        return ret; 
+        console.log("tipo1: "+typeof(ret));
+        console.log(ret.rows.length);
+         return ret.rows; 
 
       })
-      .catch(e=> console.error(e));
+      .catch(e=> { 
+        console.error(e)
+        return null;
+      });
     })
-    .catch(e => console.error(e));
+    .catch(e => {
+      console.error(e);
+      return null;  
+    });
+      return null;
   }
 }

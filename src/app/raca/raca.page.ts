@@ -1,6 +1,7 @@
 import { RacaService } from './../services/raca.service';
 import { Component, OnInit } from '@angular/core';
 import { Raca } from '../models/raca';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -10,35 +11,36 @@ import { Raca } from '../models/raca';
 })
 export class RacaPage implements OnInit {
 
-  raca  : Raca;
-  racas : Array<Raca>; 
+  public raca  : Raca;
+  public racas : Array<Raca>; 
 
   constructor(public racaService : RacaService) {
 
    }
 
   ngOnInit() {
-    /*for(let cont = 300; cont < 302;cont++){
-      let raca = new Raca(cont,"nome "+cont);
-      this.racaService.insert(raca);
-    }
-    */
+    this.initializePage(); 
+    
+  }
 
-    //this.racas = this.racaService.getAll();
-    //console.log(this.racas);
+  private async initializePage(){
+    
+    for(let cont of Array.from(Array(10).keys()).map(i => i)){
+       let raca = new Raca("nome "+cont);
+       //this.racaService.insert(raca);
+    }
+
+    this.racaService.getAll().then((racass : Array<Raca>) =>{
+        this.racas = racass; 
+        console.log(this.racas);
+    }).catch(e=> console.error(e));
+    
+      
+  }
+  public salvar():void{
+    this.racaService.insert(this.raca);
   }
 
 }
 
-/*
-<ion-footer>
-  <ion-toolbar>
-    <ion-fab right bottom>
-      <button ion-fab color="primary" (click)="addLocal()">
-        <ion-icon name="add"></ion-icon>
-      </button>
-    </ion-fab>
-  </ion-toolbar>
-</ion-footer>
 
-*/
