@@ -29,15 +29,10 @@ export class RacaPage implements OnInit {
   }
 
   private async initializePage(){
-    
-    for(let cont of Array.from(Array(10).keys()).map(i => i)){
-       let raca = new Raca("nome "+cont);
-       //this.racaService.insert(raca);
-    }
-
+        
     this.racaService.getAll().then((racass : Array<Raca>) =>{
         this.racas = racass; 
-        console.log(this.racas);
+       
     }).catch(e=> console.error(e));
     
       
